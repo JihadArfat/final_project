@@ -18,10 +18,13 @@ spec:
         ports:
         - containerPort: 8443
         env:
-        - name: TELEGRAM_TOKEN
-          value: "6920865650:AAFlBnucpRzJhexXQQSEdYaZ50EFiU60vn4"
-        - name: TELEGRAM_APP_URL
-          value: "https://polybotjihad.devops-int-college.com/"
+          - name: TELEGRAM_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: TELEGRAM_TOKEN_Jihad
+                key: TELEGRAM_TOKEN
+          - name: TELEGRAM_APP_URL
+            value: "https://polybotjihad.devops-int-college.com/"
         readinessProbe:
           httpGet:
             path: /health
