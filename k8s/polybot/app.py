@@ -16,7 +16,7 @@ app = flask.Flask(__name__)
 secrets_manager_client = boto3.client('secretsmanager', region_name='us-west-1')
 
 try:
-    secret_name = 'telegram_token_jihad'
+    secret_name = 'telegram-token-jihad'
     response = secrets_manager_client.get_secret_value(SecretId=secret_name)
     TELEGRAM_TOKEN = response['SecretString']
 except Exception as e:

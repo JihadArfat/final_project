@@ -21,7 +21,7 @@ spec:
           - name: TELEGRAM_TOKEN
             valueFrom:
               secretKeyRef:
-                name: telegram_token_jihad
+                name: telegram-token-jihad
                 key: TELEGRAM_TOKEN
           - name: TELEGRAM_APP_URL
             value: "https://polybotjihad.devops-int-college.com/"
