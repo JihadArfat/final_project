@@ -72,7 +72,13 @@ def results():
     else:
         return 'No results found'
 
-@app.route(f'/loadTest/', methods=['POST'])
+
+@app.route('/health')
+def health_check():
+    return 'OK', 200
+
+
+@app.route('/loadTest/', methods=['POST'])
 def load_test():
     req = request.get_json()
     bot.handle_message(req['message'])
