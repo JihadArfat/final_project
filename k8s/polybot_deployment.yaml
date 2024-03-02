@@ -14,14 +14,14 @@ spec:
     spec:
       containers:
       - name: polybot
-        image: 352708296901.dkr.ecr.us-west-1.amazonaws.com/jihadpolybot:1.1
+        image: 352708296901.dkr.ecr.us-west-1.amazonaws.com/jihadpolybot:1.2
         ports:
         - containerPort: 8443
         env:
           - name: TELEGRAM_TOKEN
             valueFrom:
               secretKeyRef:
-                name: TELEGRAM_TOKEN_Jihad
+                name: telegram_token_jihad
                 key: TELEGRAM_TOKEN
           - name: TELEGRAM_APP_URL
             value: "https://polybotjihad.devops-int-college.com/"
