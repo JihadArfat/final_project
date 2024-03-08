@@ -3,46 +3,37 @@ from flask import request, jsonify
 import os
 from bot import ObjectDetectionBot
 import logging
-import boto3
-import json
 from loguru import logger
-from botocore.exceptions import NoCredentialsError
-
 
 app = flask.Flask(__name__)
 
+# Retrieve the TELEGRAM_TOKEN from Kubernetes secret
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 
-# Create a Secrets Manager client for a specific region
-secrets_manager_client = boto3.client('secretsmanager', region_name='us-west-1')
+# Check if TELEGRAM_TOKEN exists
+if not TELEGRAM_TOKEN:
+    logger.error("TELEGRAM_TOKEN not found in environment variables")
+    # Handle the situation when TELEGRAM_TOKEN is not found, e.g., set a default value or raise an exception
+    # Example:
+    # raise ValueError("TELEGRAM_TOKEN not found in environment variables")
+else:
+    TELEGRAM_TOKEN = TELEGRAM_TOKEN.strip()  # Remove leading/trailing whitespace if necessary
 
-try:
-    secret_name = 'telegram-token-jihad'
-    response = secrets_manager_client.get_secret_value(SecretId=secret_name)
-    TELEGRAM_TOKEN = response['SecretString']
-except Exception as e:
-    logging.error(f"Error retrieving secret '{secret_name}': {str(e)}")
-
-
-TELEGRAM_TOKEN = json.loads(TELEGRAM_TOKEN)['TELEGRAM_TOKEN']
 TELEGRAM_APP_URL = os.environ.get('TELEGRAM_APP_URL')
-
 
 # Initialize ObjectDetectionBot instance
 bot_instance = ObjectDetectionBot()
 bot_instance.set_tokens_from_flask(TELEGRAM_TOKEN, TELEGRAM_APP_URL)
 
-
 @app.route('/', methods=['GET'])
 def index():
     return 'Ok'
-
 
 @app.route(f'/{TELEGRAM_TOKEN}/', methods=['POST'])
 def webhook():
     req = request.get_json()
     bot_instance.handle_message(req['message'])
     return 'Ok'
-
 
 @app.route(f'/results', methods=['GET'])
 def results():
@@ -72,11 +63,9 @@ def results():
     else:
         return 'No results found'
 
-
 @app.route('/health')
 def health_check():
     return 'OK', 200
-
 
 @app.route('/loadTest/', methods=['POST'])
 def load_test():
@@ -84,7 +73,5 @@ def load_test():
     bot.handle_message(req['message'])
     return 'Ok'
 
-
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8443)
-
