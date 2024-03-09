@@ -81,17 +81,22 @@ class ObjectDetectionBot:
         logger.info(f'Incoming message: {msg}')
 
         if self.is_current_msg_photo(msg):
+            logger.info("Received a photo message.")
             photo_path = self.download_user_photo(msg)
+            logger.info(f"Downloaded photo to: {photo_path}")
 
             if photo_path:
                 # Upload the photo to S3
                 img_name = self.upload_to_s3(photo_path, 'jihadar')
+                logger.info(f"Uploaded photo to S3 with name: {img_name}")
 
                 # Send a job to the SQS queue
                 self.send_sqs_message(str(msg['chat']['id']), img_name)
+                logger.info("Sent message to SQS queue.")
 
                 # Send message to the Telegram end-user
                 self.send_text(msg['chat']['id'], 'Your image is being processed. Please wait...')
+                logger.info("Sent message to Telegram user.")
 
     def is_current_msg_photo(self, msg):
         return 'photo' in msg
