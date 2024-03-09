@@ -17,18 +17,6 @@ spec:
         image: 352708296901.dkr.ecr.us-west-1.amazonaws.com/jihadyolo5:latest
         ports:
         - containerPort: 8080
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 10
-          periodSeconds: 30
         resources:
           requests:
             cpu: "100m"
