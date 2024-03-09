@@ -38,21 +38,20 @@ spec:
             memory: "300Mi"
 
 ---
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling.stable.example.com/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: yolo5-autoscaler
+  name: yolo5-hpa
 spec:
   scaleTargetRef:
-    apiVersion: apps/v1
     kind: Deployment
     name: yolo5-deployment
   minReplicas: 1
   maxReplicas: 5
   metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 50
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
