@@ -4,9 +4,9 @@ metadata:
   name: telegram-ingress
   namespace: default
   annotations:
-    cert-manager.io/issuer: letsencrypt-prod
+    cert-manager.io/issuer: letsencrypt-prod  # Specify the cert-manager issuer for Let's Encrypt
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/affinity: "cookie
+    nginx.ingress.kubernetes.io/affinity: "cookie"  # Add this line to maintain session affinity (optional)
 spec:
   tls:
     - hosts:
