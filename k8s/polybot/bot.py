@@ -77,14 +77,13 @@ class ObjectDetectionBot:
 
     def setup_bot(self):
         if self.cert_path is None:
-            raise ValueError("Certificate path is not provided.")
+            raise ValueError("Certificate file path is not provided.")
 
-        with open(self.cert_path, 'rb') as cert_file:
-            self.telegram_bot_client = telebot.TeleBot(self.telegram_token, certificate=cert_file)
-            self.telegram_bot_client.remove_webhook()
-            time.sleep(0.5)
-            self.telegram_bot_client.set_webhook(url=f'{self.telegram_app_url}/{self.telegram_token}/', timeout=60)
-            logger.info(f'Telegram Bot information\n\n{self.telegram_bot_client.get_me()}')
+        self.telegram_bot_client = telebot.TeleBot(self.telegram_token)
+        self.telegram_bot_client.remove_webhook()
+        time.sleep(0.5)
+        self.telegram_bot_client.set_webhook(url=f'{self.telegram_app_url}/{self.telegram_token}/', certificate=open(self.cert_path, 'rb'), timeout=60)
+        logger.info(f'Telegram Bot information\n\n{self.telegram_bot_client.get_me()}')
 
     def handle_message(self, msg):
         logger.info(f'Incoming message: {msg}')
