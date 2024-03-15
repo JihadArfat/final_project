@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: polybot
-        image: 352708296901.dkr.ecr.us-west-1.amazonaws.com/jihadpolybot:1.5
+        image: 352708296901.dkr.ecr.us-west-1.amazonaws.com/jihadpolybot:1.6
         ports:
         - containerPort: 8443
         env:
@@ -34,13 +34,14 @@ spec:
             port: 8443
           initialDelaySeconds: 10
           periodSeconds: 30
-        resources:
-          requests:
-            cpu: "100m"
-            memory: "150Mi"
-          limits:
-            cpu: "200m"
-            memory: "300Mi"
+        volumeMounts:
+          - name: tls-certs
+            mountPath: /etc/ssl/certs
+            readOnly: true
+      volumes:
+        - name: tls-certs
+          secret:
+            secretName: bot-certificate
 
 ---
 apiVersion: v1

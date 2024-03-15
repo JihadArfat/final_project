@@ -9,8 +9,8 @@ from botocore.exceptions import NoCredentialsError
 import json
 
 class Bot:
-    def __init__(self, token, telegram_chat_url):
-        self.telegram_bot_client = telebot.TeleBot(token)
+    def __init__(self, token, telegram_chat_url, cert_path):
+        self.telegram_bot_client = telebot.TeleBot(token, certificate=open(cert_path, 'rb'))
         self.telegram_bot_client.remove_webhook()
         time.sleep(0.5)
         self.telegram_bot_client.set_webhook(url=f'{telegram_chat_url}/{token}/', timeout=60)
