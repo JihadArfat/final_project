@@ -7,6 +7,7 @@ import time
 import requests
 from botocore.exceptions import NoCredentialsError
 import json
+import tempfile
 
 class Bot:
     def __init__(self, token, telegram_chat_url, cert_data):
@@ -77,7 +78,11 @@ class ObjectDetectionBot:
         if self.cert_data is None:
             raise ValueError("Certificate data is not provided.")
 
-        self.telegram_bot_client = telebot.TeleBot(self.telegram_token, certificate=self.cert_data)
+        cert_file = tempfile.NamedTemporaryFile(delete=False)
+        cert_file.write(self.cert_data)
+        cert_file.close()
+
+        self.telegram_bot_client = telebot.TeleBot(self.telegram_token, cert=(cert_file.name,))
         self.telegram_bot_client.remove_webhook()
         time.sleep(0.5)
         self.telegram_bot_client.set_webhook(url=f'{self.telegram_app_url}/{self.telegram_token}/', timeout=60)
