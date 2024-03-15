@@ -40,7 +40,7 @@ else:
 
 # Initialize ObjectDetectionBot instance
 bot_instance = ObjectDetectionBot()
-bot_instance.set_tokens_from_flask(TELEGRAM_TOKEN, TELEGRAM_APP_URL)
+bot_instance.set_tokens_from_flask(TELEGRAM_TOKEN, TELEGRAM_APP_URL, cert_data)
 
 @app.route('/', methods=['GET'])
 def index():
