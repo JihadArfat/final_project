@@ -2,22 +2,24 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: telegram-ingress
+  namespace: default
   annotations:
-    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/affinity: "cookie
 spec:
   tls:
-  - hosts:
-    - polybotjihad.devops-int-college.com
-    secretName: tls-secret
+    - hosts:
+        - polybotjihad.devops-int-college.com
+      secretName: tls-secret
   rules:
-  - host: polybotjihad.devops-int-college.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: polybot-service
-            port:
-              number: 8443
+    - host: polybotjihad.devops-int-college.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: polybot-service
+                port:
+                  number: 8443

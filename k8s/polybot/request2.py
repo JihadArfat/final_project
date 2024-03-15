@@ -1,21 +1,16 @@
 import telebot
 
-# Replace 'YOUR_BOT_TOKEN' with your actual bot token obtained from BotFather
-bot = telebot.TeleBot('6920865650:AAFlBnucpRzJhexXQQSEdYaZ50EFiU60vn4')
+# Replace 'YOUR_BOT_TOKEN' with your actual bot token
+bot_token = "6920865650:AAFlBnucpRzJhexXQQSEdYaZ50EFiU60vn4"
 
-# Example of sending a message to a specific chat ID
-chat_id = '6247081496'  # Replace with the chat ID where you want to send the message
-message_text = 'Hello, this is a test message from Telebot!'
-bot.send_message(chat_id, message_text)
+# Initialize the bot
+bot = telebot.TeleBot(token=bot_token)
 
-# Example of sending a photo to a specific chat ID
-photo_path = 'path/to/your/photo.jpg'  # Replace with the path to your photo
-with open(photo_path, 'rb') as photo:
-    bot.send_photo(chat_id, photo)
+# Replace 'PHOTO_URL' with the URL of the photo you want to send
+photo_url = "https://jihadar.s3.us-west-1.amazonaws.com/dogs2.jpg"
 
-# You can perform various other actions supported by the Telegram Bot API using Telebot
-# For example, sending files, stickers, handling callbacks, etc.
+# Replace 'CHAT_ID' with the chat ID of your bot (you can get it from the webhook request)
+chat_id = "6247081496"
 
-# Start the bot's pooling to continuously check for updates
-# bot.infinity_polling()
-
+# Send the photo
+bot.send_photo(chat_id=chat_id, photo=photo_url)
