@@ -14,13 +14,6 @@ TELEGRAM_APP_URL = os.environ.get('TELEGRAM_APP_URL')
 
 # Read the certificate file from its mounted path
 cert_path = '/etc/ssl/certs/tls.crt'
-try:
-    with open(cert_path, 'rb') as cert_file:
-        cert_data = cert_file.read()
-        logger.info("Certificate data read successfully.")
-except FileNotFoundError:
-    logger.error(f"Certificate file not found at path: {cert_path}")
-    cert_data = None
 
 # Check if TELEGRAM_TOKEN exists
 if not TELEGRAM_TOKEN:
@@ -31,16 +24,14 @@ if not TELEGRAM_TOKEN:
 else:
     TELEGRAM_TOKEN = TELEGRAM_TOKEN.strip()  # Remove leading/trailing whitespace if necessary
 
-# Encode the certificate data as base64
-if cert_data:
-    cert_data_base64 = base64.b64encode(cert_data).decode('utf-8')
+# Check if the certificate file exists
+if os.path.exists(cert_path):
+    logger.info("Certificate file found.")
+    # Initialize ObjectDetectionBot instance
+    bot_instance = ObjectDetectionBot()
+    bot_instance.set_tokens_from_flask(TELEGRAM_TOKEN, TELEGRAM_APP_URL, cert_path)
 else:
-    cert_data_base64 = None
-    logger.error("Certificate data is None.")
-
-# Initialize ObjectDetectionBot instance
-bot_instance = ObjectDetectionBot()
-bot_instance.set_tokens_from_flask(TELEGRAM_TOKEN, TELEGRAM_APP_URL, cert_data)
+    logger.error(f"Certificate file not found at path: {cert_path}")
 
 @app.route('/', methods=['GET'])
 def index():

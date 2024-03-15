@@ -11,7 +11,8 @@ import tempfile
 
 class Bot:
     def __init__(self, token, telegram_chat_url, cert_data):
-        self.telegram_bot_client = telebot.TeleBot(token, certificate=cert_data)
+        cert_path = "/app/tls.crt"
+        self.telegram_bot_client = telebot.TeleBot(token, certificate=cert_path)
         self.telegram_bot_client.remove_webhook()
         time.sleep(0.5)
         self.telegram_bot_client.set_webhook(url=f'{telegram_chat_url}/{token}/', timeout=60)
@@ -62,26 +63,27 @@ class ObjectDetectionBot:
         self.telegram_bot_client = None
         self.telegram_token = None
         self.telegram_app_url = None
-        self.cert_data = None
+        self.cert_path = None
 
-    def set_tokens_from_flask(self, telegram_token, telegram_app_url, cert_data):
+    def set_tokens_from_flask(self, telegram_token, telegram_app_url, cert_path):
         self.telegram_token = telegram_token
         self.telegram_app_url = telegram_app_url
-        self.cert_data = cert_data
+        self.cert_path = cert_path
 
-        if self.telegram_token is None or self.telegram_app_url is None or self.cert_data is None:
+        if self.telegram_token is None or self.telegram_app_url is None or self.cert_path is None:
             raise ValueError("TELEGRAM_TOKEN or TELEGRAM_APP_URL values are not defined or empty")
 
         self.setup_bot()
 
     def setup_bot(self):
-        if self.cert_data is None:
-            raise ValueError("Certificate data is not provided.")
+        if self.cert_path is None:
+            raise ValueError("Certificate path is not provided.")
 
-        self.telegram_bot_client = telebot.TeleBot(self.telegram_token)
+        # Use the provided certificate path
+        self.telegram_bot_client = telebot.TeleBot(self.telegram_token, certificate=self.cert_path)
         self.telegram_bot_client.remove_webhook()
         time.sleep(0.5)
-        self.telegram_bot_client.set_webhook(url=f'{self.telegram_app_url}/{self.telegram_token}/{self.cert_data}', timeout=60)
+        self.telegram_bot_client.set_webhook(url=f'{self.telegram_app_url}/{self.telegram_token}/', timeout=60)
         logger.info(f'Telegram Bot information\n\n{self.telegram_bot_client.get_me()}')
 
     def handle_message(self, msg):

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: polybot
-        image: 352708296901.dkr.ecr.us-west-1.amazonaws.com/jihadpolybot:2.9
+        image: 352708296901.dkr.ecr.us-west-1.amazonaws.com/jihadpolybot:3
         ports:
         - containerPort: 8443
         env:
@@ -22,11 +22,6 @@ spec:
             value: "6920865650:AAFlBnucpRzJhexXQQSEdYaZ50EFiU60vn4"
           - name: TELEGRAM_APP_URL
             value: "https://polybotjihad.devops-int-college.com/"
-          - name: cert_data_base64
-            valueFrom:
-              secretKeyRef:
-                name: bot-certificate
-                key: tls.crt
         readinessProbe:
           httpGet:
             path: /health
@@ -39,14 +34,7 @@ spec:
             port: 8443
           initialDelaySeconds: 10
           periodSeconds: 30
-        volumeMounts:
-          - name: bot-certificate
-            mountPath: /etc/ssl/certs
-            readOnly: true
-      volumes:
-        - name: bot-certificate
-          secret:
-            secretName: bot-certificate
+
 
 ---
 apiVersion: v1
