@@ -35,11 +35,11 @@ spec:
           initialDelaySeconds: 10
           periodSeconds: 30
         volumeMounts:
-          - name: tls-certs
+          - name: bot-certificate
             mountPath: /etc/ssl/certs
             readOnly: true
       volumes:
-        - name: tls-certs
+        - name: bot-certificate
           secret:
             secretName: bot-certificate
 
