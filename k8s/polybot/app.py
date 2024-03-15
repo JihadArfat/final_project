@@ -37,11 +37,22 @@ else:
 def index():
     return 'Ok'
 
+
 @app.route(f'/{TELEGRAM_TOKEN}/', methods=['POST'])
 def webhook():
-    req = request.get_json()
-    bot_instance.handle_message(req['message'])
-    return 'Ok'
+    try:
+        req = request.get_json()
+        logger.info(f"Incoming request: {req}")
+
+        if 'message' in req:
+            bot_instance.handle_message(req['message'])
+        else:
+            logger.warning("Received request with no 'message' field.")
+
+        return 'Ok'
+    except Exception as e:
+        logger.error(f"Error handling webhook request: {e}")
+        return 'Error', 500
 
 @app.route(f'/results', methods=['GET'])
 def results():
