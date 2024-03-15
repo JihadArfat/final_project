@@ -8,6 +8,9 @@ import base64
 
 app = flask.Flask(__name__)
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 # Retrieve the TELEGRAM_TOKEN from Kubernetes secret
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 TELEGRAM_APP_URL = os.environ.get('TELEGRAM_APP_URL')
@@ -32,6 +35,8 @@ if os.path.exists(cert_path):
     bot_instance.set_tokens_from_flask(TELEGRAM_TOKEN, TELEGRAM_APP_URL, cert_path)
 else:
     logger.error(f"Certificate file not found at path: {cert_path}")
+
+app.config['DEBUG'] = True
 
 @app.route('/', methods=['GET'])
 def index():
