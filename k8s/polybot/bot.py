@@ -61,6 +61,7 @@ class ObjectDetectionBot:
         self.telegram_bot_client = None
         self.telegram_token = None
         self.telegram_app_url = None
+        self.cert_data = None
 
     def set_tokens_from_flask(self, telegram_token, telegram_app_url):
         self.telegram_token = telegram_token
