@@ -72,6 +72,9 @@ class ObjectDetectionBot:
         self.setup_bot()
 
     def setup_bot(self):
+        if self.cert_data is None:
+            raise ValueError("Certificate data is not provided.")
+
         self.telegram_bot_client = telebot.TeleBot(self.telegram_token, certificate=self.cert_data)
         self.telegram_bot_client.remove_webhook()
         time.sleep(0.5)
