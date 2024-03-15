@@ -63,11 +63,12 @@ class ObjectDetectionBot:
         self.telegram_app_url = None
         self.cert_data = None
 
-    def set_tokens_from_flask(self, telegram_token, telegram_app_url):
+    def set_tokens_from_flask(self, telegram_token, telegram_app_url, cert_data):
         self.telegram_token = telegram_token
         self.telegram_app_url = telegram_app_url
+        self.cert_data = cert_data
 
-        if self.telegram_token is None or self.telegram_app_url is None:
+        if self.telegram_token is None or self.telegram_app_url is None or self.cert_data is None:
             raise ValueError("TELEGRAM_TOKEN or TELEGRAM_APP_URL values are not defined or empty")
 
         self.setup_bot()
