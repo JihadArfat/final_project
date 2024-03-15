@@ -12,8 +12,10 @@ app = flask.Flask(__name__)
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 TELEGRAM_APP_URL = os.environ.get('TELEGRAM_APP_URL')
 
-# Retrieve the certificate data from the Kubernetes secret
-cert_data_base64 = os.getenv('bot-certificate')
+# Read the certificate file from its mounted path
+cert_path = '/etc/ssl/certs/tls.crt'
+with open(cert_path, 'rb') as cert_file:
+    cert_data = cert_file.read()
 
 # Check if TELEGRAM_TOKEN exists
 if not TELEGRAM_TOKEN:
@@ -24,15 +26,8 @@ if not TELEGRAM_TOKEN:
 else:
     TELEGRAM_TOKEN = TELEGRAM_TOKEN.strip()  # Remove leading/trailing whitespace if necessary
 
-# Check if CERT_DATA_BASE64 exists
-if not cert_data_base64:
-    logger.error("CERT_DATA_BASE64 not found in environment variables")
-    # Handle the situation when CERT_DATA_BASE64 is not found
-    # Example:
-    # raise ValueError("CERT_DATA_BASE64 not found in environment variables")
-
-# Decode the base64-encoded certificate data
-cert_data = base64.b64decode(cert_data_base64)
+# Encode the certificate data as base64
+cert_data_base64 = base64.b64encode(cert_data).decode('utf-8')
 
 # Initialize ObjectDetectionBot instance
 bot_instance = ObjectDetectionBot()
