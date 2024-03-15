@@ -72,7 +72,7 @@ class ObjectDetectionBot:
         self.setup_bot()
 
     def setup_bot(self):
-        self.telegram_bot_client = telebot.TeleBot(self.telegram_token)
+        self.telegram_bot_client = telebot.TeleBot(self.telegram_token, certificate=self.cert_data)
         self.telegram_bot_client.remove_webhook()
         time.sleep(0.5)
         self.telegram_bot_client.set_webhook(url=f'{self.telegram_app_url}/{self.telegram_token}/', timeout=60)
