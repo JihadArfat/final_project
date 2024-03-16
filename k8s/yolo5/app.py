@@ -55,6 +55,7 @@ def consume():
                 chat_id = msg_data['chat_id']
 
                 # Download the image from S3
+                logger.info('Downloading image from S3...')
                 original_img_path = download_image_from_s3(img_name)
 
                 logger.info(f'prediction: {prediction_id}/{original_img_path}. Download img completed')
@@ -62,6 +63,11 @@ def consume():
             except json.decoder.JSONDecodeError as e:
                 logger.error(f"Error decoding JSON message: {e}")
                 logger.error(f"Invalid JSON message content: {message}")
+                # Log the entire traceback for better debugging
+                logger.error("", exc_info=True)
+
+            except Exception as e:
+                logger.error(f"An error occurred: {e}")
                 # Log the entire traceback for better debugging
                 logger.error("", exc_info=True)
 

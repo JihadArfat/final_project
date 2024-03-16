@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: yolo5
-        image: 352708296901.dkr.ecr.us-west-1.amazonaws.com/jihadyolo5:latest
+        image: 352708296901.dkr.ecr.us-west-1.amazonaws.com/jihadyolo5:1.1
         ports:
         - containerPort: 8080
         env:
