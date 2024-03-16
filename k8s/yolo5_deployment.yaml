@@ -18,6 +18,10 @@ spec:
         ports:
         - containerPort: 8080
         env:
+          - name: BUCKET_NAME
+            value: "jihadar"
+          - name: SQS_QUEUE_NAME
+            value: "jihad"
           - name: AWS_ACCESS_KEY_ID
             valueFrom:
               secretKeyRef:
