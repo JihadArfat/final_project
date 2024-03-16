@@ -13,7 +13,8 @@ logger = logging.getLogger(__name__)
 
 # Retrieve the TELEGRAM_TOKEN from Kubernetes secret
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
-TELEGRAM_APP_URL = os.environ.get('TELEGRAM_APP_URL')
+TELEGRAM_APP_URL = os.getenv('TELEGRAM_APP_URL')
+S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
 
 # Read the certificate file from its mounted path
 cert_path = '/etc/ssl/certs/tls.crt'
