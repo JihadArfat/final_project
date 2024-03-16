@@ -79,31 +79,37 @@ def consume():
                 cleanup(original_img_path, prediction_id)
 
                 if prediction_id:
-                    # Predicts the objects in the image only if prediction_id is not None
-                    run(
-                        weights='yolov5s.pt',
-                        data='data/coco128.yaml',
-                        source=original_img_path,
-                        project='static/data',
-                        name=prediction_id,
-                        save_txt=True
-                    )
+                    try:
+                        # Predicts the objects in the image only if prediction_id is not None
+                        logger.info('Running object detection...')
+                        run(
+                            weights='yolov5s.pt',
+                            data='data/coco128.yaml',
+                            source=original_img_path,
+                            project='static/data',
+                            name=prediction_id,
+                            save_txt=True
+                        )
 
-                    logger.info(f'prediction: {prediction_id}/{original_img_path}. done')
+                        logger.info(f'prediction: {prediction_id}/{original_img_path}. done')
 
-                    # Uploads the predicted image to S3
-                    predicted_img_path = upload_predicted_image_to_s3(prediction_id, original_img_path)
+                        # Uploads the predicted image to S3
+                        predicted_img_path = upload_predicted_image_to_s3(prediction_id, original_img_path)
 
-                    # Parse prediction labels and create a summary
-                    labels = parse_prediction_labels(prediction_id, original_img_path)
+                        # Parse prediction labels and create a summary
+                        labels = parse_prediction_labels(prediction_id, original_img_path)
 
-                    logger.info(f'prediction: {prediction_id}/{original_img_path}. prediction summary:\n\n{labels}')
+                        logger.info(f'prediction: {prediction_id}/{original_img_path}. prediction summary:\n\n{labels}')
 
-                    # Store the prediction_summary in a DynamoDB table
-                    store_prediction_summary_in_dynamodb(prediction_id, original_img_path, predicted_img_path, labels, chat_id)
+                        # Store the prediction_summary in a DynamoDB table
+                        store_prediction_summary_in_dynamodb(prediction_id, original_img_path, predicted_img_path, labels, chat_id)
 
-                    # Perform a GET request to Polybot to `/results` endpoint
-                    send_get_request_to_polybot(prediction_id, chat_id)
+                        # Perform a GET request to Polybot to `/results` endpoint
+                        send_get_request_to_polybot(prediction_id, chat_id)
+                    except Exception as e:
+                        logger.error(f"An error occurred during object detection: {e}")
+                        # Log the entire traceback for better debugging
+                        logger.error("", exc_info=True)
 
 
 def download_image_from_s3(img_name):
@@ -177,4 +183,3 @@ def send_get_request_to_polybot(prediction_id, chat_id):
 
 if __name__ == "__main__":
     consume()
-
