@@ -158,16 +158,21 @@ def parse_prediction_labels(prediction_id, original_img_path):
 
 
 def store_prediction_summary_in_dynamodb(prediction_id, original_img_path, predicted_img_path, labels, chat_id):
-    table.put_item(
-        Item={
-            'chat_id': chat_id,
-            'PredictionId': prediction_id,
-            'OriginalImagePath': original_img_path,
-            'PredictedImagePath': predicted_img_path,
-            'Labels': json.dumps(labels),
-            'Timestamp': str(int(time.time()))
-        }
-    )
+    try:
+        table.put_item(
+            Item={
+                'chat_id': chat_id,
+                'PredictionId': prediction_id,
+                'OriginalImagePath': original_img_path,
+                'PredictedImagePath': predicted_img_path,
+                'Labels': json.dumps(labels),
+                'Timestamp': str(int(time.time()))
+            }
+        )
+    except Exception as e:
+        logger.error(f"An error occurred while storing prediction summary in DynamoDB: {e}")
+        # Log the entire traceback for better debugging
+        logger.error("", exc_info=True)
 
 
 def send_get_request_to_polybot(prediction_id, chat_id):
