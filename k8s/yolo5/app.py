@@ -83,7 +83,7 @@ def consume():
                         # Predicts the objects in the image only if prediction_id is not None
                         logger.info('Running object detection...')
                         run(
-                            weights='yolo5s.pt',
+                            weights='yolov5s.pt',
                             data='data/coco128.yaml',
                             source=original_img_path,
                             project='static/data',
