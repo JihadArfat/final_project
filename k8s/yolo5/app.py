@@ -179,8 +179,11 @@ def send_get_request_to_polybot(prediction_id, chat_id):
     polybot_endpoint = 'polybotjihad.devops-int-college.com'
     polybot_url = f'https://{polybot_endpoint}/results?predictionId={prediction_id}&chatId={chat_id}'
 
+    # Path to the self-signed certificate file
+    cert_file = '/etc/ssl/certs/tls.crt'
+
     # Use requests library to make a GET request
-    response = requests.get(polybot_url)
+    response = requests.get(polybot_url, verify=cert_file)
 
     # Optionally, log the response
     logger.info(f"Polybot response: {response.text}")
