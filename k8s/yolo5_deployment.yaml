@@ -39,8 +39,8 @@ spec:
             cpu: "100m"
             memory: "150Mi"
           limits:
-            cpu: "5000m"
-            memory: "5Gi"
+            cpu: "3000m"
+            memory: "3Gi"
 
 ---
 apiVersion: autoscaling.stable.example.com/v1
