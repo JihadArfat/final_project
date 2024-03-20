@@ -3,10 +3,12 @@ kind: Service
 metadata:
   name: grafana
 spec:
+  ports:
+    - port: 3000
+      protocol: TCP
+      targetPort: http-grafana
   selector:
     app: grafana
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 3000
+  sessionAffinity: None
+  type: LoadBalancer
 
