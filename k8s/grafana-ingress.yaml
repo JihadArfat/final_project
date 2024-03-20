@@ -4,10 +4,6 @@ metadata:
   name: grafana-ingress
   namespace: default
 spec:
-  tls:
-    - hosts:
-        - jihadgrafana.devops-int-college.com
-      secretName: tls-secret
   rules:
     - host: jihadgrafana.devops-int-college.com
       http:
@@ -18,4 +14,5 @@ spec:
               service:
                 name: grafana
                 port:
-                  number: 3000
+                  number: 80
+
