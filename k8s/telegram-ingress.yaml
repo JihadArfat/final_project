@@ -7,8 +7,6 @@ metadata:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/affinity: "cookie"
-    service.beta.kubernetes.io/aws-load-balancer-type: "classic"
-    service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "app.kubernetes.io/managed-by=nginx-ingress-controller"
 spec:
   tls:
     - hosts:
