@@ -16,5 +16,12 @@ pipeline {
                 '''
             }
         }
+        stage('Trigger Release') {
+            steps {
+                build job: 'Release', wait: false, parameters: [
+                    string(name: 'POLYBOT_PROD_IMG_URL', value: "${ECR_URL}/jihadpolybot:0.0.${BUILD_NUMBER}")
+                ]
+            }
+        }
     }
 }
