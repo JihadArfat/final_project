@@ -22,7 +22,7 @@ cert_path = '/etc/ssl/certs/tls.crt'
 # Check if TELEGRAM_TOKEN exists
 if not TELEGRAM_TOKEN:
     logger.error("TELEGRAM_TOKEN not found in environment variables")
-    # Handle the situation when TELEGRAM_TOKEN is not found, e.g., set a default value or raise an exception
+    # Handle the situation when TELEGRAM_TOKEN is not found, set a default value or raise an exception
     # Example:
     # raise ValueError("TELEGRAM_TOKEN not found in environment variables")
 else:
