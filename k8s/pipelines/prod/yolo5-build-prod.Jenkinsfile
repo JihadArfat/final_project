@@ -9,17 +9,17 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                cd k8s/polybot
+                cd k8s/yolo5
                 aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 352708296901.dkr.ecr.us-west-1.amazonaws.com
-                docker build -t $ECR_URL/jihadpolybot:0.0.$BUILD_NUMBER .
-                docker push $ECR_URL/jihadpolybot:0.0.$BUILD_NUMBER
+                docker build -t $ECR_URL/jihad-yolo5-prod:0.0.$BUILD_NUMBER .
+                docker push $ECR_URL/jihad-yolo5-prod:0.0.$BUILD_NUMBER
                 '''
             }
         }
         stage('Trigger Release') {
             steps {
                 build job: 'Release', wait: false, parameters: [
-                    string(name: 'POLYBOT_PROD_IMG_URL', value: "${ECR_URL}/jihadpolybot:0.0.${BUILD_NUMBER}")
+                    string(name: 'IMG_URL', value: "${ECR_URL}/jihad-yolo5-prod:0.0.${BUILD_NUMBER}")
                 ]
             }
         }
