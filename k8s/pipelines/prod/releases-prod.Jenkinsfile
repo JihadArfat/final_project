@@ -12,7 +12,7 @@ pipeline {
                     script {
                         def yamlFile
 
-                        if (IMG_URL.contains("-polybot")) {
+                        if (IMG_URL.contains("polybot")) {
                             yamlFile = "k8s/polybot/polybot_deployment.yaml"
                         } else if (IMG_URL.contains("yolo5")) {
                             yamlFile = "k8s/yolo5/yolo5_deployment.yaml"
