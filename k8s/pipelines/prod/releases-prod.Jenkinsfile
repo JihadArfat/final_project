@@ -28,7 +28,7 @@ pipeline {
                         echo "yamlFile: ${yamlFile}"
                         ls -l k8s/polybot/
                         ls -l k8s/yolo5/
-                        sed -i "s|image: .*|image: ${IMG_URL}|g" "${WORKSPACE}/${yamlFile}"
+                        sed -i "s|image: .*|image: ${IMG_URL}|g" "${yamlFile}"
                         git add "${yamlFile}"
                         git -c user.name='jihadarfat' -c user.email=arfatjoj@gmail.com commit -m "$IMG_URL"
                         git push https://JihadArfat:${PASSWORD}@github.com/JihadArfat/k8s_project.git releases
