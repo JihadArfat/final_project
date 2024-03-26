@@ -28,6 +28,7 @@ pipeline {
                         echo "yamlFile: ${yamlFile}"
                         ls -l k8s/polybot/
                         ls -l k8s/yolo5/
+                        cd ${WORKSPACE}
                         pwd
                         sed -i "s|image: .*|image: ${IMG_URL}|g" "${yamlFile}"
                         git add "${yamlFile}"
