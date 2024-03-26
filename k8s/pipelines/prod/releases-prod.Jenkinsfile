@@ -9,19 +9,16 @@ pipeline {
         stage('Update YAML') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'github2', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    script {
-                        def yamlFile
-
-                        if (IMG_URL.contains("polybot")) {
-                            yamlFile = "k8s/polybot/polybot_deployment.yaml"
-                        } else if (IMG_URL.contains("yolo5")) {
-                            yamlFile = "k8s/yolo5/yolo5_deployment.yaml"
-                        } else {
-                            error('Invalid IMG_URL')
-                        }
-
                         sh '''
                         printenv
+
+                        if [[ $IMG_URL == *"polybot"* ]]; then
+                            yamlFile="k8s/polybot/polybot_deployment.yaml"
+                        elif [[ $IMG_URL == *"yolo5"* ]]; then
+                            yamlFile="k8s/yolo5/yolo5_deployment.yaml"
+                        else
+                            exit 7
+                        fi
 
                         git checkout releases
                         git merge origin/main
@@ -30,7 +27,7 @@ pipeline {
                         git -c user.name='jihadarfat' -c user.email=arfatjoj@gmail.com commit -m "$IMG_URL"
                         git push https://JihadArfat:${PASSWORD}@github.com/JihadArfat/k8s_project.git releases
                         '''
-                    }
+
                 }
             }
         }
