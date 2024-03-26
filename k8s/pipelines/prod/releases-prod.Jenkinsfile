@@ -25,11 +25,6 @@ pipeline {
 
                         git checkout releases
                         git merge origin/main
-                        echo "yamlFile: ${yamlFile}"
-                        ls -l k8s/polybot/
-                        ls -l k8s/yolo5/
-                        cd k8s
-                        pwd
                         sed -i "s|image: .*|image: ${IMG_URL}|g" "${yamlFile}"
                         git add "${yamlFile}"
                         git -c user.name='jihadarfat' -c user.email=arfatjoj@gmail.com commit -m "$IMG_URL"
