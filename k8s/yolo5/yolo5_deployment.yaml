@@ -16,7 +16,7 @@ spec:
         kubernetes.io/hostname: ip-172-31-4-83.us-west-1.compute.internal
       containers:
       - name: yolo5
-        image: 352708296901.dkr.ecr.us-west-1.amazonaws.com/jihad-yolo5-dev:0.0.2
+        image: 352708296901.dkr.ecr.us-west-1.amazonaws.com/jihad-yolo5-dev:0.0.8
         ports:
         - containerPort: 8080
         env:
