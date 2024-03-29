@@ -18,8 +18,8 @@ pipeline {
         }
         stage('Trigger Release') {
             steps {
-                build job: 'Release', wait: false, parameters: [
-                    string(name: 'YOLO5_DEV_IMG_URL', value: "${ECR_URL}/jihad-yolo5-dev:0.0.${BUILD_NUMBER}")
+                build job: 'ReleaseDev', wait: false, parameters: [
+                    string(name: 'IMG_URL', value: "${ECR_URL}/jihad-yolo5-dev:0.0.${BUILD_NUMBER}")
                 ]
             }
         }
