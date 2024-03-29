@@ -20,6 +20,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: polybot-service
+                name: dev_polybot-service
                 port:
                   number: 8443

@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: yolo5-deployment
+  name: dev_yolo5-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: yolo5
+      app: dev_yolo5
   template:
     metadata:
       labels:
-        app: yolo5
+        app: dev_yolo5
     spec:
       nodeSelector:
         kubernetes.io/hostname: ip-172-31-4-83.us-west-1.compute.internal
       containers:
-      - name: yolo5
+      - name: dev_yolo5
         image: IMG_URL
         ports:
         - containerPort: 8080
@@ -51,7 +51,7 @@ spec:
  scaleTargetRef:
    apiVersion: apps/v1
    kind: Deployment
-   name: yolo5-deployment
+   name: dev_yolo5-deployment
  minReplicas: 1
  maxReplicas: 10
  targetCPUUtilizationPercentage: 50
