@@ -22,6 +22,10 @@ pipeline {
 
                         git checkout releases
                         git pull https://JihadArfat:${PASSWORD}@github.com/JihadArfat/final_project.git releases  --no-edit --no-ff
+                        if [ $? -ne 0 ]; then
+                            echo "Merge conflicts detected. Please resolve them manually."
+                            exit 1
+                        fi
                         sed -i "s|image: .*|image: ${IMG_URL}|g" "${yamlFile}"
                         git add "${yamlFile}"
                         git -c user.name='jihadarfat' -c user.email=arfatjoj@gmail.com commit -m "$IMG_URL"
