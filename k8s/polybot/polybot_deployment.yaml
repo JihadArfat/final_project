@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dev_polybot-deployment
+  name: polybot-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dev_polybot
+      app: polybot
   template:
     metadata:
       labels:
-        app: dev_polybot
+        app: polybot
     spec:
       containers:
-      - name: dev_polybot
+      - name: polybot
         image: IMG_URL
         ports:
         - containerPort: 8443
@@ -52,10 +52,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: dev_polybot-service
+  name: polybot-service
 spec:
   selector:
-    app: dev_polybot
+    app: polybot
   ports:
     - protocol: TCP
       port: 8443
