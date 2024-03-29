@@ -19,7 +19,7 @@ pipeline {
         stage('Trigger Release') {
             steps {
                 build job: 'ReleaseDev', wait: false, parameters: [
-                    string(name: 'POLYBOT_DEV_IMG_URL', value: "${ECR_URL}/jihad-polybot-dev:0.0.${BUILD_NUMBER}")
+                    string(name: 'IMG_URL', value: "${ECR_URL}/jihad-polybot-dev:0.0.${BUILD_NUMBER}")
                 ]
             }
         }
