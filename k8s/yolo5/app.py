@@ -75,7 +75,7 @@ def consume():
                 # Delete the message from the queue as the job is considered as DONE
                 sqs_client.delete_message(QueueUrl=queue_name, ReceiptHandle=receipt_handle)
 
-                # Move any cleanup logic here that should execute regardless of success or failure
+                # Move any cleanup logic here that should execute regardless of success/failure
                 cleanup(original_img_path, prediction_id)
 
                 if prediction_id:
