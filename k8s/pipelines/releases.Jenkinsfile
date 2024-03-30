@@ -25,7 +25,7 @@ pipeline {
                         sed -i "s|image: .*|image: ${IMG_URL}|g" "${yamlFile}"
                         git add "${yamlFile}"
                         git -c user.name='jihadarfat' -c user.email=arfatjoj@gmail.com commit -m "$IMG_URL"
-                        git push https://JihadArfat:${PASSWORD}@github.com/JihadArfat/final_project.git releases
+                        git push https://JihadArfat:${PASSWORD}@github.com/JihadArfat/DevOps-Final-Project.git releases
                         '''
                 }
             }
