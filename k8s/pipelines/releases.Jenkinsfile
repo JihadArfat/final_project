@@ -20,8 +20,10 @@ pipeline {
                             exit 7
                         fi
 
-                        git checkout releases
+                        git checkout main
                         git pull origin releases --rebase
+                        git push https://JihadArfat:${PASSWORD}@github.com/JihadArfat/final_project.git main
+                        git checkout releases
                         git merge origin/main
                         sed -i "s|image: .*|image: ${IMG_URL}|g" "${yamlFile}"
                         git add "${yamlFile}"
