@@ -20,15 +20,25 @@ pipeline {
                             exit 7
                         fi
 
-                        # Checkout releases and merge with main using ours merge strategy
+                        # Checkout releases and merge with main, handling conflicts
                         git checkout releases
-                        git merge -s ours origin/main
+                        if git merge origin/main; then
+                            # No conflicts, update the YAML file and push changes
+                            sed -i "s|image: .*|image: ${IMG_URL}|g" "${yamlFile}"
+                            git add "${yamlFile}"
+                            git -c user.name='jihadarfat' -c user.email=arfatjoj@gmail.com commit -m "$IMG_URL"
+                            git push https://JihadArfat:${PASSWORD}@github.com/JihadArfat/final_project.git releases
 
-                        # Update the YAML file with new image URL
-                        sed -i "s|image: .*|image: ${IMG_URL}|g" "${yamlFile}"
-                        git add "${yamlFile}"
-                        git -c user.name='jihadarfat' -c user.email=arfatjoj@gmail.com commit -m "$IMG_URL"
-                        git push https://JihadArfat:${PASSWORD}@github.com/JihadArfat/final_project.git releases
+                            # Switch back to main and push the rebased changes
+                            git checkout main
+                            git pull origin releases --rebase
+                            git push https://JihadArfat:${PASSWORD}@github.com/JihadArfat/final_project.git main
+                        else
+                            # Handle merge conflict by aborting the merge
+                            git merge --abort
+                            echo "Merge conflict detected. Aborting merge."
+                            exit 1
+                        fi
                         '''
                 }
             }
