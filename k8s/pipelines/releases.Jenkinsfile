@@ -20,20 +20,15 @@ pipeline {
                             exit 7
                         fi
 
-                        # Checkout releases and merge with main
+                        # Checkout releases and merge with main using ours merge strategy
                         git checkout releases
-                        git merge origin/main
+                        git merge -s ours origin/main
 
                         # Update the YAML file with new image URL
                         sed -i "s|image: .*|image: ${IMG_URL}|g" "${yamlFile}"
                         git add "${yamlFile}"
                         git -c user.name='jihadarfat' -c user.email=arfatjoj@gmail.com commit -m "$IMG_URL"
                         git push https://JihadArfat:${PASSWORD}@github.com/JihadArfat/final_project.git releases
-
-                        # Switch back to main and push the rebased changes
-                        git checkout main
-                        git pull origin releases --rebase
-                        git push https://JihadArfat:${PASSWORD}@github.com/JihadArfat/final_project.git main
                         '''
                 }
             }
