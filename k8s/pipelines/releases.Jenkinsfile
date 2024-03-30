@@ -22,7 +22,7 @@ pipeline {
 
                         git checkout releases
                         git fetch origin releases
-                        git merge origin/main
+                        git pull origin releases
                         sed -i "s|image: .*|image: ${IMG_URL}|g" "${yamlFile}"
                         git add "${yamlFile}"
                         git -c user.name='jihadarfat' -c user.email=arfatjoj@gmail.com commit -m "$IMG_URL"
