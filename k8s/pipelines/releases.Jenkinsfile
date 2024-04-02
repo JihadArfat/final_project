@@ -21,6 +21,7 @@ pipeline {
                         fi
 
                         git checkout releases
+                        git pull origin releases
                         git merge origin/main
                         sed -i "s|image: .*|image: ${IMG_URL}|g" "${yamlFile}"
                         git add "${yamlFile}"
