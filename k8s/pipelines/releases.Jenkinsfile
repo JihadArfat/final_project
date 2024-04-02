@@ -27,10 +27,6 @@ pipeline {
                         git add "${yamlFile}"
                         git -c user.name='jihadarfat' -c user.email=arfatjoj@gmail.com commit -m "$IMG_URL"
                         git push https://JihadArfat:${PASSWORD}@github.com/JihadArfat/DevOps-Final-Project.git releases
-                        git checkout main
-                        git pull origin main
-                        git merge releases
-                        git push https://JihadArfat:${PASSWORD}@github.com/JihadArfat/DevOps-Final-Project.git main
                         '''
                 }
             }
