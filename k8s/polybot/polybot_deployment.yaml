@@ -1,30 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: polybot-deployment-dev
-  namespace: dev
+  name: polybot-deployment
+  namespace: prod
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: polybot-dev
+      app: polybot
   template:
     metadata:
       labels:
-        app: polybot-dev
+        app: polybot
     spec:
       containers:
-      - name: polybot-dev
+      - name: polybot
         image: IMG_URL
         ports:
         - containerPort: 8443
         env:
           - name: TELEGRAM_TOKEN
-            value: "7024108948:AAHB_gwmjGqrayt3kE2yDO0lg_fJTbkXuTE"
+            value: "6920865650:AAFlBnucpRzJhexXQQSEdYaZ50EFiU60vn4"
           - name: TELEGRAM_APP_URL
-            value: "https://polybotjihaddev.devops-int-college.com/"
+            value: "https://polybotjihad.devops-int-college.com/"
           - name: S3_BUCKET_NAME
-            value: "jihadar-dev"
+            value: "jihadar"
           - name: AWS_ACCESS_KEY_ID
             valueFrom:
              secretKeyRef:
@@ -58,11 +58,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: polybot-service-dev
-  namespace: dev
+  name: polybot-service
+  namespace: prod
 spec:
   selector:
-    app: polybot-dev
+    app: polybot
   ports:
     - protocol: TCP
       port: 8443
