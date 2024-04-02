@@ -183,7 +183,7 @@ def send_get_request_to_polybot(prediction_id, chat_id):
     cert_file = '/etc/ssl/certs/tls-dev.crt'
 
     # Use requests library to make a GET request
-    response = requests.get(polybot_url, verify=cert_file)
+    response = requests.get(polybot_url, verify=False)
 
     # Optionally, log the response
     logger.info(f"Polybot response: {response.text}")
