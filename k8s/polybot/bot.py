@@ -96,7 +96,7 @@ class ObjectDetectionBot:
 
             if photo_path:
                 # Upload the photo to S3
-                img_name = self.upload_to_s3(photo_path, 'jihadar')
+                img_name = self.upload_to_s3(photo_path, 'jihadar-dev')
                 logger.info(f"Uploaded photo to S3 with name: {img_name}")
 
                 # Send a job to the SQS queue
@@ -138,7 +138,7 @@ class ObjectDetectionBot:
     def send_sqs_message(self, chat_id, img_name):
         region = 'us-west-1'
         sqs = boto3.client('sqs', region_name=region)
-        queue_url = 'https://sqs.us-west-1.amazonaws.com/352708296901/jihad'
+        queue_url = 'https://sqs.us-west-1.amazonaws.com/352708296901/jihad-dev'
 
         message_body = {
             'chat_id': chat_id,
@@ -163,7 +163,7 @@ class ObjectDetectionBot:
     def retrieve_results_from_dynamodb(self, chat_id):
         try:
             response = self.dynamodb_client.get_item(
-                TableName='jihad',
+                TableName='jihad-dev',
                 Key={
                     'chat_id': {'S': chat_id}
 

@@ -1,7 +1,7 @@
 FROM python:3.10
 
 # Set environment variable
-ENV TELEGRAM_APP_URL=https://polybotjihad.devops-int-college.com/
+ENV TELEGRAM_APP_URL=https://polybotjihaddev.devops-int-college.com/
 
 # Set the working directory in the container
 WORKDIR /app

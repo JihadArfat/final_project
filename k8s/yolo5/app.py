@@ -16,7 +16,7 @@ region_name = 'us-west-1'
 sqs_client = boto3.client('sqs', region_name=region_name)
 s3_client = boto3.client('s3', region_name=region_name)
 dynamodb = boto3.resource('dynamodb', region_name=region_name)
-dynamodb_table_name = 'jihad'
+dynamodb_table_name = 'jihad-dev'
 table = dynamodb.Table(dynamodb_table_name)
 
 with open("data/coco128.yaml", "r") as stream:
@@ -176,7 +176,7 @@ def store_prediction_summary_in_dynamodb(prediction_id, original_img_path, predi
 
 
 def send_get_request_to_polybot(prediction_id, chat_id):
-    polybot_endpoint = 'polybotjihad.devops-int-college.com'
+    polybot_endpoint = 'polybotjihaddev.devops-int-college.com'
     polybot_url = f'https://{polybot_endpoint}/results?predictionId={prediction_id}&chatId={chat_id}'
 
     # Path to the self-signed certificate file
