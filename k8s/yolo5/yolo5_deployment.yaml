@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: yolo5-deployment
+  namespace: prod
 spec:
   replicas: 1
   selector:
@@ -47,6 +48,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
  name: hpa-demo-deployment
+ namespace: prod
 spec:
  scaleTargetRef:
    apiVersion: apps/v1
