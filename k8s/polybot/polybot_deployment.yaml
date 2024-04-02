@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: polybot-dev
-        image: 352708296901.dkr.ecr.us-west-1.amazonaws.com/jihad-polybot-dev:0.0.30
+        image: 352708296901.dkr.ecr.us-west-1.amazonaws.com/jihad-polybot-dev:0.0.31
         ports:
         - containerPort: 8443
         env:
