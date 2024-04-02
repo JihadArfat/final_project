@@ -19,25 +19,23 @@ spec:
         ports:
         - containerPort: 8443
         env:
-          - name: TELEGRAM_TOKEN
-            value: "7024108948:AAHB_gwmjGqrayt3kE2yDO0lg_fJTbkXuTE"
-          - name: TELEGRAM_APP_URL
-            value: "https://polybotjihaddev.devops-int-college.com/"
-          - name: S3_BUCKET_NAME
-            value: "jihadar-dev"
-          - name: AWS_ACCESS_KEY_ID
-            valueFrom:
-             secretKeyRef:
+        - name: TELEGRAM_APP_URL
+          value: "https://polybotjihaddev.devops-int-college.com/"
+        - name: S3_BUCKET_NAME
+          value: "jihadar-dev"
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
               name: aws-secret
               key: AWS_ACCESS_KEY_ID
-          - name: TELEGRAM_TOKEN
-            valueFrom:
-             secretKeyRef:
+        - name: TELEGRAM_TOKEN
+          valueFrom:
+            secretKeyRef:
               name: telegram-secret
               key: token
-          - name: AWS_SECRET_ACCESS_KEY
-            valueFrom:
-             secretKeyRef:
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
               name: aws-secret
               key: AWS_SECRET_ACCESS_KEY
         readinessProbe:
@@ -52,7 +50,6 @@ spec:
             port: 8443
           initialDelaySeconds: 10
           periodSeconds: 30
-
 
 ---
 apiVersion: v1
