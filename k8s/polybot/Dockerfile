@@ -10,8 +10,8 @@ WORKDIR /app
 COPY app.py bot.py requirements.txt /app/
 
 # Copy certificate and key files
-COPY tls.crt /etc/ssl/certs/
-COPY tls.key /etc/ssl/certs/
+COPY tls-dev.crt /etc/ssl/certs/
+COPY tls-dev.key /etc/ssl/certs/
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt

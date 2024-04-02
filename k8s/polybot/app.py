@@ -17,7 +17,7 @@ TELEGRAM_APP_URL = os.getenv('TELEGRAM_APP_URL')
 S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
 
 # Read the certificate file from its mounted path
-cert_path = '/etc/ssl/certs/tls.crt'
+cert_path = '/etc/ssl/certs/tls-dev.crt'
 
 # Check if TELEGRAM_TOKEN exists
 if not TELEGRAM_TOKEN:
