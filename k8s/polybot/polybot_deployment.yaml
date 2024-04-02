@@ -30,6 +30,11 @@ spec:
              secretKeyRef:
               name: aws-secret
               key: AWS_ACCESS_KEY_ID
+          - name: TELEGRAM_TOKEN
+            valueFrom:
+             secretKeyRef:
+              name: telegram-secret
+              key: token
           - name: AWS_SECRET_ACCESS_KEY
             valueFrom:
              secretKeyRef:
