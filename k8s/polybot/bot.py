@@ -12,7 +12,7 @@ import tempfile
 
 class Bot:
     def __init__(self, token, telegram_chat_url, cert_data):
-        cert_path = "/etc/ssl/certs/tls.crt"
+        cert_path = "/etc/ssl/certs/tls-dev.crt"
         self.telegram_bot_client = telebot.TeleBot(token, certificate=cert_path)
         self.telegram_bot_client.remove_webhook()
         time.sleep(0.5)
