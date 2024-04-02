@@ -9,6 +9,7 @@ from botocore.exceptions import NoCredentialsError
 import json
 import tempfile
 
+
 class Bot:
     def __init__(self, token, telegram_chat_url, cert_data):
         cert_path = "/etc/ssl/certs/tls.crt"
@@ -103,7 +104,7 @@ class ObjectDetectionBot:
                 logger.info("Sent message to SQS queue.")
 
                 # Send message to the Telegram end-user
-                self.send_text(msg['chat']['id'], 'Your image is being processed. please wait!!')
+                self.send_text(msg['chat']['id'], 'Your image is being processed. please wait')
                 logger.info("Sent message to Telegram user.")
 
     def is_current_msg_photo(self, msg):
