@@ -20,13 +20,13 @@ pipeline {
                             exit 7
                         fi
 
-                        git checkout releases
-                        git pull origin releases
+                        git checkout releasesdev
+                        git pull origin releasesdev
                         git merge origin/dev
                         sed -i "s|image: .*|image: ${IMG_URL}|g" "${yamlFile}"
                         git add "${yamlFile}"
                         git -c user.name='jihadarfat' -c user.email=arfatjoj@gmail.com commit -m "$IMG_URL"
-                        git push https://JihadArfat:${PASSWORD}@github.com/JihadArfat/DevOps-Final-Project.git releases
+                        git push https://JihadArfat:${PASSWORD}@github.com/JihadArfat/DevOps-Final-Project.git releasesdev
                         '''
                 }
             }
