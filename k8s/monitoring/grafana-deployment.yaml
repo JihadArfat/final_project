@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: grafana-pvc
+  name: grafana-pvc-gp3
   namespace: monitoring
 spec:
   accessModes:
@@ -11,13 +11,12 @@ spec:
       storage: 2Gi
   storageClassName: gp3
 
-
 ---
 
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: grafana-pvc
+  name: grafana-pvc-gp2
   namespace: monitoring
 spec:
   accessModes:
@@ -55,7 +54,7 @@ spec:
       volumes:
       - name: grafana-storage
         persistentVolumeClaim:
-          claimName: grafana-pvc
+          claimName: grafana-pvc-gp3
 
 ---
 
