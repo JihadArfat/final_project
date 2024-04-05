@@ -1,19 +1,16 @@
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
-  name: grafana-pv
+  name: grafana-pvc
   namespace: monitoring
 spec:
-  capacity:
-    storage: 2Gi
-  volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
+  resources:
+    requests:
+      storage: 2Gi
   storageClassName: gp3
-  awsElasticBlockStore:
-    volumeID: vol-039a387953c90aa57
-    fsType: ext4
+  volumeName: grafana-pv
 
 ---
 
