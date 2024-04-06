@@ -1,6 +1,7 @@
 backend:
-  type: "cloudwatch_logs"
-  log_group_name: "kubernetes_cluster"
-  log_stream_name: "fluentd"
-  auto_create_group: "true"
-  region: "us-west-1" # Replace with your AWS region
+  type: "forward"
+  flush_interval: "5s"
+  servers:
+    - name: fluentd-cloudwatch-0
+      host: "10.109.75.187"
+      port: 24224
