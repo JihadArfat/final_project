@@ -1,0 +1,7 @@
+backend:
+  type: "forward"
+  flush_interval: "5s"
+  servers:
+    - name: fluentd-cloudwatch-0
+      host: "10.109.75.187"
+      port: 24224

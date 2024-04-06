@@ -6,7 +6,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: aws-ebs
+  storageClassName: aws-ebs-csi
   resources:
     requests:
       storage: 2Gi
@@ -28,6 +28,9 @@ spec:
       labels:
         app: grafana
     spec:
+      securityContext:
+        runAsUser: 472
+        fsGroup: 472
       containers:
       - name: grafana
         image: grafana/grafana:latest
