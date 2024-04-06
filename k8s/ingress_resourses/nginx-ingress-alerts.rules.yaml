@@ -11,7 +11,7 @@ groups:
       description: "The rate of incoming requests to the Nginx Ingress Controller is above 100 requests per minute."
 
   - alert: IngressCertificateExpirationWarning
-    expr: (kube_ingress_controller_nginx_org_tls_secret_expiry_time - time()) < 7*24*3600
+    expr: (nginx_ingress_controller_ssl_expire_time - time()) < 7*24*3600
     for: 5m
     labels:
       severity: warning
